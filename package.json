@@ -4,11 +4,12 @@
   "version": "0.1.0",
   "description": "AI-powered IDE with agent-first architecture, inspired by Google AntiGravity",
   "main": "./out/main.js",
-  "author": "shunsuke",
-  "license": "MIT",
+  "author": "Shunsuke Hayashi",
+  "license": "UNLICENSED",
+  "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/antigravity-ide"
+    "url": "git@github.com:ShunsukeHayashi/AntiGravity_miyabi_edition.git"
   },
   "engines": {
     "node": ">=18.0.0",

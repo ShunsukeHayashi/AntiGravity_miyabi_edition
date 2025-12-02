@@ -118,17 +118,21 @@ This project is in early development. The foundational structure is complete, an
 
 ## Contributing
 
-We welcome contributions! Please see our [Contributing Guide](./docs/CONTRIBUTING.md) for details.
+**This is proprietary software. External contributions are not accepted.**
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This project is closed-source and all rights are reserved. Unauthorized modifications, forks, or pull requests will not be accepted and may constitute copyright infringement.
+
+If you have suggestions or would like to discuss potential collaboration, please contact the copyright holder directly.
 
 ## License
 
-MIT License - see [LICENSE](./LICENSE) for details
+**PROPRIETARY - ALL RIGHTS RESERVED**
+
+This software is proprietary and confidential. Unauthorized use, copying, modification, or distribution is strictly prohibited and will be prosecuted to the fullest extent of the law.
+
+See [LICENSE](./LICENSE) for complete terms and restrictions.
+
+For licensing inquiries or permission requests, contact: [@ShunsukeHayashi](https://github.com/ShunsukeHayashi)
 
 ## Acknowledgments
 

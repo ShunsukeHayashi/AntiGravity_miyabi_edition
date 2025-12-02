@@ -1,119 +1,62 @@
-# Contributing to AntiGravity IDE
+# Contributing Policy
 
-Thank you for your interest in contributing to AntiGravity IDE!
+## Proprietary Software - No External Contributions
 
-## Code of Conduct
+**AntiGravity IDE is proprietary, closed-source software.**
 
-Please be respectful and constructive in all interactions.
+All rights are reserved by Shunsuke Hayashi. This project does **NOT** accept external contributions, including but not limited to:
 
-## How to Contribute
+- Pull requests
+- Issue reports (from non-authorized users)
+- Feature suggestions
+- Code reviews
+- Documentation improvements
+- Bug reports
+- Forks or derivative works
 
-### Reporting Bugs
+## Legal Notice
 
-1. Check if the bug has already been reported in [Issues](https://github.com/ShunsukeHayashi/AntiGravity_miyabi_edition/issues)
-2. If not, create a new issue using the Bug Report template
-3. Provide detailed information:
-   - Steps to reproduce
-   - Expected behavior
-   - Actual behavior
-   - Environment details
+Any unauthorized attempt to:
+- Fork this repository
+- Submit pull requests
+- Copy, modify, or distribute the code
+- Create derivative works
+- Reverse engineer the software
 
-### Suggesting Features
+**Will constitute copyright infringement and may result in legal action.**
 
-1. Check if the feature has already been requested
-2. Create a new issue using the Feature Request template
-3. Clearly describe the feature and its use case
+## For Authorized Collaborators Only
 
-### Submitting Pull Requests
+If you have been explicitly authorized by the copyright holder to contribute to this project, please follow these internal guidelines:
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/your-feature-name`
-3. Make your changes
-4. Write or update tests as needed
-5. Ensure all tests pass: `npm test`
-6. Ensure code passes linting: `npm run lint`
-7. Commit your changes following our commit message guidelines
-8. Push to your fork
-9. Submit a pull request
+### Internal Development Process
 
-## Development Setup
+1. Contact the project owner directly before making any changes
+2. Work on assigned features only
+3. Follow the internal coding standards
+4. All contributions remain the property of Shunsuke Hayashi
+5. Sign a Contributor License Agreement (CLA) if required
 
-```bash
-# Clone your fork
-git clone https://github.com/YOUR_USERNAME/AntiGravity_miyabi_edition.git
-cd AntiGravity_miyabi_edition
+### Confidentiality
 
-# Add upstream remote
-git remote add upstream https://github.com/ShunsukeHayashi/AntiGravity_miyabi_edition.git
+All authorized collaborators must:
+- Maintain strict confidentiality about the codebase
+- Not disclose any proprietary information
+- Not share code or documentation with unauthorized parties
+- Follow all non-disclosure agreements (NDAs)
 
-# Install dependencies
-npm install
+## Contact for Licensing Inquiries
 
-# Start development
-npm run watch
-```
+If you wish to:
+- License this software for commercial use
+- Discuss partnership opportunities
+- Request special permissions
 
-## Coding Standards
+Contact: Shunsuke Hayashi
+GitHub: [@ShunsukeHayashi](https://github.com/ShunsukeHayashi)
 
-### TypeScript Style Guide
+---
 
-- Use TypeScript strict mode
-- Prefer `interface` over `type` for object types
-- Use meaningful variable and function names
-- Add JSDoc comments for public APIs
-- Use 2 spaces for indentation
+**This policy is effective immediately and supersedes any previous contribution guidelines.**
 
-### Commit Message Guidelines
-
-Follow the Conventional Commits specification:
-
-```
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
-- `refactor`: Code refactoring
-- `test`: Test changes
-- `chore`: Build process or auxiliary tool changes
-
-Example:
-```
-feat(agent): add mission control dashboard
-
-Implement the mission control interface for managing multiple agents
-simultaneously. Includes real-time status monitoring and task distribution.
-
-Closes #123
-```
-
-### Testing
-
-- Write unit tests for new features
-- Ensure all tests pass before submitting PR
-- Aim for high test coverage
-
-### Documentation
-
-- Update README.md if needed
-- Add JSDoc comments for new public APIs
-- Update architecture docs for significant changes
-
-## Project Structure
-
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed project structure.
-
-## Questions?
-
-Feel free to ask questions by:
-- Opening an issue
-- Starting a discussion in GitHub Discussions
-
-Thank you for contributing!
+Copyright (c) 2025 Shunsuke Hayashi. All rights reserved.
