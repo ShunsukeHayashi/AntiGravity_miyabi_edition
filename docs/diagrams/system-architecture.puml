@@ -1,0 +1,119 @@
+@startuml AntiGravity System Architecture
+
+!define RECTANGLE class
+
+skinparam componentStyle rectangle
+skinparam backgroundColor #FEFEFE
+skinparam component {
+  BackgroundColor<<Main>> #E3F2FD
+  BackgroundColor<<Renderer>> #FFF9C4
+  BackgroundColor<<Agent>> #C8E6C9
+  BackgroundColor<<Browser>> #FFCCBC
+  BackgroundColor<<External>> #F3E5F5
+  BorderColor #424242
+  FontColor #212121
+  FontSize 12
+}
+
+title AntiGravity IDE - System Architecture
+
+package "AntiGravity IDE" {
+
+  component "Main Process" <<Main>> as Main {
+    component "Application\nLifecycle" as Lifecycle
+    component "Window\nManagement" as Windows
+    component "Native OS\nIntegration" as Native
+    component "Agent Process\nOrchestrator" as Orchestrator
+  }
+
+  component "Renderer Process" <<Renderer>> as Renderer {
+    package "UI Layer" {
+      component "Mission Control\nDashboard" as MissionControl
+      component "Agent Status\nMonitor" as AgentMonitor
+      component "Task Inbox" as Inbox
+      component "Workspace\nSwitcher" as Workspace
+    }
+
+    package "Editor Layer" {
+      component "Monaco Editor" as Monaco
+      component "Syntax\nHighlighting" as Syntax
+      component "IntelliSense" as IntelliSense
+      component "Inline AI\nCommands" as AICommands
+    }
+  }
+
+  component "Agent Management Layer" as AgentMgmt {
+    component "Agent Lifecycle\nManager" as AgentLifecycle
+    component "Inter-Agent\nCommunication" as InterAgent
+    component "Resource\nAllocator" as ResourceAlloc
+    component "Task Queue\nManager" as TaskQueue
+  }
+
+  package "Agent Workers" <<Agent>> {
+    component "Code Generation\nAgent" as CodeGen
+    component "Testing\nAgent" as Testing
+    component "Deployment\nAgent" as Deploy
+    component "Planning\nAgent" as Planning
+    component "Review\nAgent" as Review
+    component "Documentation\nAgent" as Docs
+    component "Security\nAgent" as Security
+  }
+
+  component "Browser Sub-Agent" <<Browser>> as Browser {
+    component "Chrome DevTools\nProtocol" as CDP
+    component "Puppeteer/\nPlaywright" as Puppeteer
+    component "Headless Browser\nController" as HeadlessCtrl
+  }
+
+}
+
+package "External Systems" <<External>> {
+  component "VS Code\nExtensions" as VSCodeExt
+  component "LLM APIs\n(GPT-4, Claude)" as LLM
+  component "Git Repositories" as Git
+  component "CI/CD Services" as CICD
+}
+
+' Relationships
+Main -down-> Renderer : "IPC"
+Main -down-> AgentMgmt : "Manages"
+AgentMgmt -down-> CodeGen
+AgentMgmt -down-> Testing
+AgentMgmt -down-> Deploy
+AgentMgmt -down-> Planning
+AgentMgmt -down-> Review
+AgentMgmt -down-> Docs
+AgentMgmt -down-> Security
+AgentMgmt -right-> Browser : "Controls"
+
+Renderer -down-> MissionControl
+Renderer -down-> Monaco
+
+CodeGen --> LLM : "API calls"
+Testing --> Git : "Clone/Push"
+Deploy --> CICD : "Trigger"
+Browser --> CDP : "Uses"
+
+Renderer ..> VSCodeExt : "Compatible with"
+
+note right of AgentMgmt
+  Central orchestration hub
+  - Manages agent lifecycle
+  - Coordinates tasks
+  - Allocates resources
+end note
+
+note right of Browser
+  Direct browser automation
+  - Web scraping
+  - E2E testing
+  - Visual regression
+end note
+
+note bottom of "Agent Workers"
+  All agents run in
+  isolated worker processes
+  with sandboxed execution
+end note
+
+@enduml

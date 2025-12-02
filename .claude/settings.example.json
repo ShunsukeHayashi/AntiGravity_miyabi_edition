@@ -1,0 +1,89 @@
+{
+  "projectContext": "AntiGravity IDE - AI-powered IDE with agent-first architecture",
+  "workingDirectory": "/Users/shunsuke/Dev/AntiGravity",
+  "preferredStyle": {
+    "language": "TypeScript",
+    "typeMode": "strict",
+    "commitMessage": "conventional",
+    "documentation": "JSDoc",
+    "testing": "npm test"
+  },
+  "agents": {
+    "coordinator": ".claude/agents/coordinator-agent.md",
+    "codegen": ".claude/agents/codegen-agent.md",
+    "review": ".claude/agents/review-agent.md",
+    "issue": ".claude/agents/issue-agent.md",
+    "pr": ".claude/agents/pr-agent.md",
+    "deployment": ".claude/agents/deployment-agent.md"
+  },
+  "qualityThreshold": {
+    "minScore": 80,
+    "testCoverage": 80,
+    "typeScriptErrors": 0,
+    "eslintErrors": 0
+  },
+  "escalation": {
+    "techLead": "shunsuke",
+    "po": "shunsuke",
+    "ciso": "shunsuke",
+    "cto": "shunsuke"
+  },
+  "hooks": {
+    "userPromptSubmit": ".claude/hooks/log-commands.sh",
+    "beforeEdit": null,
+    "afterEdit": null
+  },
+  "logging": {
+    "directory": ".ai/logs",
+    "format": "LDD",
+    "level": "info"
+  },
+  "commands": {
+    "/test": ".claude/commands/test.md",
+    "/agent-run": ".claude/commands/agent-run.md",
+    "/verify": ".claude/commands/verify.md",
+    "/deploy": ".claude/commands/deploy.md",
+    "/create-issue": ".claude/commands/create-issue.md",
+    "/security-scan": ".claude/commands/security-scan.md",
+    "/generate-docs": ".claude/commands/generate-docs.md",
+    "/miyabi-status": ".claude/commands/miyabi-status.md",
+    "/miyabi-agent": ".claude/commands/miyabi-agent.md",
+    "/miyabi-auto": ".claude/commands/miyabi-auto.md"
+  },
+  "skills": {
+    "electron-dev": ".claude/skills/electron-dev.md",
+    "agent-debug": ".claude/skills/agent-debug.md",
+    "browser-automation": ".claude/skills/browser-automation.md"
+  },
+  "shikigaku": {
+    "principles": [
+      "責任と権限の明確化",
+      "結果重視",
+      "階層の明確化",
+      "誤解・錯覚の排除",
+      "感情的判断の排除"
+    ],
+    "labels": 46,
+    "hierarchy": "Human → Coordinator → Specialist"
+  },
+  "antigravity": {
+    "runtime": "Electron 28.0.0",
+    "buildSystem": "TypeScript → out/",
+    "packaging": "electron-builder → dist/",
+    "architecture": {
+      "main": "src/main.ts",
+      "app": "src/app/",
+      "agent": "src/agent/",
+      "browser": "src/browser/",
+      "editor": "src/editor/",
+      "ui": "src/ui/"
+    },
+    "features": {
+      "missionControl": "Agent orchestration UI",
+      "browserSubAgent": "Chrome automation & web scraping",
+      "executionPolicies": ["Off", "Auto", "Turbo"],
+      "planningModes": ["Planning", "Fast"],
+      "artifacts": ["Task lists", "Plans", "Screenshots", "Recordings"]
+    }
+  }
+}

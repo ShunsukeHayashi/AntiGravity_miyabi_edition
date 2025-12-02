@@ -1,167 +1,67 @@
-# AntiGravity IDE - Miyabi Edition
+# Antigravity Clone - Agent-First IDE Prototype
 
-> AI-powered IDE with agent-first architecture, inspired by Google AntiGravity
+Google Antigravity IDE のリバースエンジニアリング・プロトタイプへようこそ。
+本プロジェクトは、**Agent-First Architecture** を採用した次世代IDEのコンセプト実証実装です。
 
-## Overview
+## 🚀 クイックスタート
 
-AntiGravity IDE is a next-generation development environment built on VS Code's foundation, featuring an agent-first architecture that enables autonomous AI-driven development workflows. Inspired by Google's AntiGravity project, this IDE revolutionizes how developers interact with code through intelligent agents, browser integration, and advanced automation.
+本プロトタイプは、フロントエンド (`ide-core`) とバックエンド (`agent-service`) の2つのコンポーネントで構成されています。
 
-## Key Features
+### 前提条件
+- Node.js (v18以上)
+- npm
 
-### Agent Manager (Mission Control)
-- **Mission Control**: Orchestrate multiple AI agents simultaneously
-- **Inbox**: Centralized task and notification management
-- **Workspaces**: Organize projects and contexts across multiple agents
+### 起動手順
 
-### Browser Sub-Agent
-- Chrome integration for web automation
-- Automated web scraping and testing
-- Direct browser control from the IDE
+2つのターミナルを開き、それぞれで以下のコマンドを実行してください。
 
-### Editor Features
-- Advanced code editing with AI assistance
-- Inline commands for rapid development
-- Context-aware code suggestions
-
-### Execution Policies
-- **Off**: Manual control mode
-- **Auto**: Balanced automation
-- **Turbo**: Maximum automation with minimal intervention
-
-### Planning Modes
-- **Planning**: Detailed step-by-step planning
-- **Fast**: Quick execution with lightweight planning
-
-## Architecture
-
-```
-AntiGravity IDE
-├── src/                    # Core source code
-│   ├── main.ts            # Main process entry point
-│   ├── agent/             # Agent system implementation
-│   ├── browser/           # Browser sub-agent
-│   ├── editor/            # Editor enhancements
-│   └── ui/                # User interface components
-├── extensions/            # AntiGravity-specific extensions
-├── resources/             # Icons, images, assets
-├── build/                 # Build scripts
-├── scripts/               # Development scripts
-├── test/                  # Test suite
-└── docs/                  # Documentation
-```
-
-## Technology Stack
-
-- **Runtime**: Electron
-- **Language**: TypeScript
-- **Build**: esbuild / webpack
-- **Testing**: Jest
-- **CI/CD**: GitHub Actions
-
-## Documentation
-
-### Core Documentation
-- **[Architecture](./docs/ARCHITECTURE.md)** - System architecture and design patterns
-- **[Technical Details](./docs/TECHNICAL_DETAILS.md)** - In-depth implementation details
-
-### Comparison & Analysis
-- **[VS Code vs AntiGravity](./docs/VSCODE_VS_ANTIGRAVITY.md)** - Comprehensive comparison with VS Code
-  - Feature comparison
-  - Performance analysis
-  - Use case scenarios
-  - Migration guide
-
-### Policies
-- **[Contributing Policy](./docs/CONTRIBUTING.md)** - Contribution guidelines (proprietary)
-- **[Security Policy](./SECURITY.md)** - Security guidelines and reporting
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js >= 18.0.0
-- npm >= 9.0.0
-- Git
-
-### Installation
-
+**Terminal 1: エージェントサービス (Backend)**
 ```bash
-# Clone the repository
-git clone https://github.com/ShunsukeHayashi/AntiGravity_miyabi_edition.git
-cd AntiGravity_miyabi_edition
-
-# Install dependencies
+# 依存関係のインストール（初回のみ）
+cd agent-service
 npm install
 
-# Build the project
-npm run build
+# サーバー起動
+node server.js
+```
+> エージェントサービスは `ws://localhost:3001` で待機します。
 
-# Run in development mode
+**Terminal 2: IDE Core (Frontend)**
+```bash
+# 依存関係のインストール（初回のみ）
+cd ide-core
+npm install
+
+# 開発サーバー起動
 npm run dev
 ```
+> ブラウザで `http://localhost:3000` にアクセスしてください。
 
-### Development
+## 📁 プロジェクト構造
 
-```bash
-# Watch mode (auto-rebuild on changes)
-npm run watch
-
-# Run tests
-npm test
-
-# Lint code
-npm run lint
-
-# Format code
-npm run format
+```
+AntiGravity/
+├── ide-core/           # Next.js ベースのIDEフロントエンド
+│   ├── src/app/        # App Router ページ定義
+│   └── src/components/ # UIコンポーネント (ActivityBar, Sidebar, etc.)
+│
+├── agent-service/      # WebSocket ベースのエージェントバックエンド
+│   └── server.js       # エージェントロジックのモック実装
+│
+├── docs/               # プロジェクトドキュメント
+│   ├── VSCODE_VS_ANTIGRAVITY.md # コンセプト比較（Vision）
+│   └── IMPLEMENTATION_STATUS.md # 実装状況（Reality）
+│
+└── .agent/             # エージェント設定（Antigravity仕様）
 ```
 
-## Project Status
+## 🌟 主な機能（プロトタイプ）
 
-**Version**: 0.1.0 (Initial Setup)
+1.  **Agent Manager UI**: エージェントとのチャット対話インターフェース
+2.  **Browser Subagent**: ブラウザ操作のシミュレーションとオーバーレイ表示
+3.  **Task State Simulation**: Planning → Execution → Verification の状態遷移
 
-This project is in early development. The foundational structure is complete, and we're actively implementing core features.
+## 📚 ドキュメント
 
-### Roadmap
-
-- [x] Project structure initialization
-- [x] Development environment setup
-- [x] CI/CD pipeline configuration
-- [ ] Core editor implementation
-- [ ] Agent Manager (Mission Control)
-- [ ] Browser Sub-Agent integration
-- [ ] Extension API development
-- [ ] Documentation and tutorials
-
-## Contributing
-
-**This is proprietary software. External contributions are not accepted.**
-
-This project is closed-source and all rights are reserved. Unauthorized modifications, forks, or pull requests will not be accepted and may constitute copyright infringement.
-
-If you have suggestions or would like to discuss potential collaboration, please contact the copyright holder directly.
-
-## License
-
-**PROPRIETARY - ALL RIGHTS RESERVED**
-
-This software is proprietary and confidential. Unauthorized use, copying, modification, or distribution is strictly prohibited and will be prosecuted to the fullest extent of the law.
-
-See [LICENSE](./LICENSE) for complete terms and restrictions.
-
-For licensing inquiries or permission requests, contact: [@ShunsukeHayashi](https://github.com/ShunsukeHayashi)
-
-## Acknowledgments
-
-- Inspired by Google's AntiGravity project
-- Built on top of VS Code's architecture
-- Powered by the Miyabi AI agent framework
-
-## Contact
-
-- GitHub: [@ShunsukeHayashi](https://github.com/ShunsukeHayashi)
-- Repository: [AntiGravity_miyabi_edition](https://github.com/ShunsukeHayashi/AntiGravity_miyabi_edition)
-
----
-
-**Note**: This project is inspired by Google AntiGravity but is an independent implementation. It is not affiliated with, endorsed by, or sponsored by Google.
+- [Vision: VS Code vs Antigravity](./docs/VSCODE_VS_ANTIGRAVITY.md) - 目指すべき姿の定義
+- [Implementation Status](./docs/IMPLEMENTATION_STATUS.md) - 現在の実装状況とロードマップ

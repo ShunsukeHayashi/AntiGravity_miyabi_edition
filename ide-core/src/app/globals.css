@@ -1,0 +1,36 @@
+:root {
+  --background: #1e1e1e;
+  --foreground: #cccccc;
+  --activity-bar-bg: #333333;
+  --sidebar-bg: #252526;
+  --editor-bg: #1e1e1e;
+  --panel-bg: #1e1e1e;
+  --statusbar-bg: #007acc;
+  --statusbar-fg: #ffffff;
+  --border-color: #454545;
+  --accent-color: #007acc;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --text-muted: #858585;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow: hidden;
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

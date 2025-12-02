@@ -1,0 +1,115 @@
+@startuml AntiGravity Deployment Architecture
+
+skinparam backgroundColor #FEFEFE
+skinparam node {
+  BackgroundColor<<UserMachine>> #E3F2FD
+  BackgroundColor<<CloudService>> #FFF9C4
+  BackgroundColor<<ThirdParty>> #C8E6C9
+  BorderColor #424242
+  FontColor #212121
+}
+
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #1976D2
+}
+
+title AntiGravity IDE - Deployment Architecture
+
+node "User's Machine" <<UserMachine>> {
+
+  component "AntiGravity IDE\nApplication" as App {
+    [Main Process\n(Electron)]
+    [Renderer Process\n(Chromium)]
+    [Agent Workers\n(Node.js)]
+  }
+
+  database "Local Storage" as LocalDB {
+    [Code Cache]
+    [Agent State]
+    [Task History]
+    [Settings]
+  }
+
+  component "Extensions" as Ext {
+    [VS Code Extensions]
+    [Custom Agents]
+  }
+
+  App --> LocalDB : Read/Write
+  App --> Ext : Load
+}
+
+cloud "Optional Cloud Services" <<CloudService>> {
+
+  component "Agent Marketplace" as Marketplace {
+    [Agent Repository]
+    [Agent Templates]
+    [Version Control]
+  }
+
+  component "LLM Services" as LLM {
+    [OpenAI GPT-4]
+    [Anthropic Claude]
+    [Self-hosted Models]
+  }
+
+  component "Analytics" as Analytics {
+    [Usage Metrics]
+    [Performance Monitoring]
+    [Error Tracking]
+  }
+}
+
+cloud "Third-Party Services" <<ThirdParty>> {
+
+  component "Source Control" as SCM {
+    [GitHub]
+    [GitLab]
+    [Bitbucket]
+  }
+
+  component "CI/CD" as CICD {
+    [GitHub Actions]
+    [Jenkins]
+    [CircleCI]
+  }
+
+  component "Cloud Platforms" as Cloud {
+    [AWS]
+    [GCP]
+    [Azure]
+  }
+}
+
+' Network Connections
+App -.> Marketplace : HTTPS\n(Optional)
+App -.> LLM : API Calls\n(Configurable)
+App -.> Analytics : Telemetry\n(Opt-in)
+
+App --> SCM : Git Protocol
+App --> CICD : API Calls
+App --> Cloud : Deployment
+
+' Notes
+note right of App
+  Runs entirely on user's machine.
+  No cloud dependency for core features.
+  Data stays local by default.
+end note
+
+note bottom of "Optional Cloud Services"
+  Optional services for:
+  - Extended LLM capabilities
+  - Custom agent marketplace
+  - Usage analytics (opt-in)
+end note
+
+note bottom of "Third-Party Services"
+  Standard integrations with:
+  - Version control systems
+  - CI/CD pipelines
+  - Cloud deployment targets
+end note
+
+@enduml

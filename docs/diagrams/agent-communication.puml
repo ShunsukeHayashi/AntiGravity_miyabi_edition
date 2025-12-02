@@ -1,0 +1,122 @@
+@startuml Agent Communication Sequence
+
+skinparam backgroundColor #FEFEFE
+skinparam sequence {
+  ArrowColor #1976D2
+  ActorBorderColor #424242
+  LifeLineBorderColor #424242
+  ParticipantBorderColor #424242
+  ParticipantBackgroundColor #E3F2FD
+  ActorBackgroundColor #FFF9C4
+}
+
+title AntiGravity IDE - Agent Communication Flow
+
+actor Developer
+participant "Mission Control" as MC
+participant "Agent Manager" as AM
+participant "Planning Agent" as PA
+participant "Code Gen Agent" as CG
+participant "Testing Agent" as TA
+participant "Review Agent" as RA
+database "Task Queue" as TQ
+database "Message Bus" as MB
+
+Developer -> MC: "Implement user\nauthentication with JWT"
+activate MC
+
+MC -> PA: Create implementation plan
+activate PA
+
+PA -> PA: Analyze requirements
+PA -> PA: Break down into tasks
+PA -> TQ: Enqueue tasks
+PA --> MC: Plan created
+deactivate PA
+
+MC -> AM: Assign tasks to agents
+activate AM
+
+AM -> TQ: Dequeue task 1
+activate TQ
+TQ --> AM: "Create auth service"
+deactivate TQ
+
+AM -> CG: Execute task
+activate CG
+
+CG -> CG: Generate code
+CG -> MB: Publish(STATUS_UPDATE)
+activate MB
+MB --> MC: Update dashboard
+deactivate MB
+
+CG -> TQ: Enqueue "Write tests"
+CG --> AM: Task complete
+deactivate CG
+
+AM -> TQ: Dequeue task 2
+activate TQ
+TQ --> AM: "Write tests"
+deactivate TQ
+
+AM -> TA: Execute task
+activate TA
+
+TA -> TA: Generate unit tests
+TA -> TA: Generate integration tests
+TA -> MB: Publish(STATUS_UPDATE)
+activate MB
+MB --> MC: Update dashboard
+deactivate MB
+
+TA -> TQ: Enqueue "Review code"
+TA --> AM: Task complete
+deactivate TA
+
+AM -> TQ: Dequeue task 3
+activate TQ
+TQ --> AM: "Review code"
+deactivate TQ
+
+AM -> RA: Execute task
+activate RA
+
+RA -> RA: Analyze code quality
+RA -> RA: Check security issues
+RA -> RA: Verify best practices
+RA -> MB: Publish(STATUS_UPDATE)
+activate MB
+MB --> MC: Update dashboard
+deactivate MB
+
+RA --> AM: Task complete
+deactivate RA
+
+AM --> MC: All tasks complete
+deactivate AM
+
+MC --> Developer: Review results
+deactivate MC
+
+note over PA, RA
+  All agents communicate via Message Bus
+  - Asynchronous messaging
+  - Event-driven architecture
+  - Decoupled components
+end note
+
+note over CG
+  Agents can create new tasks
+  dynamically based on results
+end note
+
+note over TQ
+  Priority-based task scheduling:
+  - Critical
+  - High
+  - Normal
+  - Low
+end note
+
+@enduml

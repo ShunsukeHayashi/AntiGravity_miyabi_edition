@@ -1,0 +1,197 @@
+@startuml Mission Control UI Components
+
+skinparam backgroundColor #FEFEFE
+skinparam package {
+  BackgroundColor #E3F2FD
+  BorderColor #1976D2
+  FontColor #212121
+}
+
+skinparam component {
+  BackgroundColor #FFFFFF
+  BorderColor #424242
+}
+
+title AntiGravity IDE - Mission Control Dashboard
+
+package "Mission Control UI" {
+
+  package "Header" {
+    component "Execution Policy\nSelector" as PolicySelector {
+      [Off Mode]
+      [Auto Mode]
+      [Turbo Mode]
+    }
+
+    component "Planning Mode\nSelector" as PlanningSelector {
+      [Planning Mode]
+      [Fast Mode]
+    }
+
+    component "Global Actions" as Actions {
+      [Pause All]
+      [Resume All]
+      [Emergency Stop]
+    }
+  }
+
+  package "Main Dashboard" {
+
+    component "Agent Status Grid" as AgentGrid {
+      card "Code Gen Agent" as CodeGenCard {
+        () Status: Working
+        () Progress: 75%
+        () Current Task: Generate auth service
+      }
+
+      card "Testing Agent" as TestCard {
+        () Status: Waiting
+        () Progress: 0%
+        () Current Task: Waiting for code
+      }
+
+      card "Review Agent" as ReviewCard {
+        () Status: Idle
+        () Progress: -
+        () Current Task: None
+      }
+
+      card "Browser Agent" as BrowserCard {
+        () Status: Working
+        () Progress: 50%
+        () Current Task: Running E2E tests
+      }
+    }
+
+    component "Task Inbox" as Inbox {
+      card "Pending Tasks (5)" as Pending {
+        [P1: Implement JWT refresh]
+        [P2: Add password reset]
+        [P3: Create user profile API]
+        [P4: Add email verification]
+        [P5: Implement 2FA]
+      }
+
+      card "In Progress (3)" as InProgress {
+        [P0: Generate auth service - 75%]
+        [P0: Run integration tests - 50%]
+        [P1: Review security - 25%]
+      }
+
+      card "Completed (12)" as Completed {
+        [✓ Create user model]
+        [✓ Setup database]
+        [✓ Configure JWT library]
+        [... 9 more]
+      }
+    }
+
+    component "Live Activity Log" as ActivityLog {
+      [15:43:22 - Code Gen: Generated auth.service.ts]
+      [15:43:18 - Planning: Created 8 subtasks]
+      [15:43:15 - Mission Control: Task accepted]
+      [15:43:12 - Developer: "Implement user auth"]
+      [... older entries]
+    }
+
+    component "Resource Monitor" as Resources {
+      card "System Resources" {
+        () CPU Usage: 45%
+        () Memory: 1.2GB / 8GB
+        () Active Agents: 4 / 8
+        () Task Queue: 5 pending
+      }
+
+      card "Agent Performance" {
+        () Avg Response Time: 2.3s
+        () Success Rate: 98.5%
+        () Tasks/Hour: 127
+        () Error Rate: 1.5%
+      }
+    }
+  }
+
+  package "Sidebar" {
+    component "Workspace Switcher" as WorkspaceSwitch {
+      [● Current: AntiGravity IDE]
+      [○ Miyabi Framework]
+      [○ Personal Website]
+      [+ New Workspace]
+    }
+
+    component "Recent Tasks" as RecentTasks {
+      [Fix authentication bug]
+      [Add user profile feature]
+      [Update dependencies]
+      [Write documentation]
+      [Deploy to staging]
+    }
+
+    component "Quick Actions" as QuickActions {
+      [📝 Create Task]
+      [🔄 Sync Repository]
+      [🚀 Deploy]
+      [📊 View Analytics]
+      [⚙️ Settings]
+    }
+  }
+
+  package "Bottom Panel" {
+    component "Real-time Notifications" as Notifications {
+      [ℹ️ Code Gen Agent completed task]
+      [⚠️ Testing Agent: 2 tests failing]
+      [✅ Review Agent: No issues found]
+    }
+
+    component "Agent Communication" as Communication {
+      [Code Gen → Testing: "Tests ready"]
+      [Testing → Review: "Tests passed"]
+      [Review → Deployment: "Approved"]
+    }
+  }
+}
+
+' Layout relationships
+PolicySelector -[hidden]-> PlanningSelector
+PlanningSelector -[hidden]-> Actions
+
+AgentGrid -[hidden]down-> Inbox
+Inbox -[hidden]down-> ActivityLog
+ActivityLog -[hidden]down-> Resources
+
+WorkspaceSwitch -[hidden]down-> RecentTasks
+RecentTasks -[hidden]down-> QuickActions
+
+Notifications -[hidden]-> Communication
+
+note top of "Mission Control UI"
+  Central command center for:
+  - Monitoring all agents
+  - Managing task queues
+  - Controlling execution policies
+  - Real-time status updates
+end note
+
+note right of AgentGrid
+  Visual representation of all active agents.
+  Shows real-time status, progress, and current task.
+  Color-coded by status:
+  - Green: Working
+  - Yellow: Waiting
+  - Gray: Idle
+  - Red: Error
+end note
+
+note right of Inbox
+  Priority-based task management.
+  Tasks are auto-sorted by priority and dependencies.
+  Developers can manually adjust priorities.
+end note
+
+note bottom of Resources
+  System health monitoring.
+  Alerts when resources are constrained.
+  Performance metrics for optimization.
+end note
+
+@enduml

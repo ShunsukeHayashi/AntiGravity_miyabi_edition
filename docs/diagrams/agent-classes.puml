@@ -1,0 +1,248 @@
+@startuml Agent Class Diagram
+
+skinparam backgroundColor #FEFEFE
+skinparam class {
+  BackgroundColor #E3F2FD
+  BorderColor #424242
+  ArrowColor #1976D2
+  FontColor #212121
+}
+
+skinparam note {
+  BackgroundColor #FFF9C4
+  BorderColor #F57C00
+}
+
+title AntiGravity IDE - Agent Class Structure
+
+' Core Interfaces
+interface Agent {
+  +id: string
+  +type: AgentType
+  +status: AgentStatus
+  +capabilities: Capability[]
+  +context: AgentContext
+  --
+  +initialize(): Promise<void>
+  +execute(task: Task): Promise<TaskResult>
+  +communicate(message: AgentMessage): Promise<void>
+  +shutdown(): Promise<void>
+}
+
+enum AgentType {
+  CodeGeneration
+  Testing
+  Deployment
+  Browser
+  Planning
+  Review
+  Documentation
+  Security
+}
+
+enum AgentStatus {
+  Idle
+  Working
+  Waiting
+  Error
+  Suspended
+}
+
+class AgentContext {
+  +workspace: Workspace
+  +variables: Map<string, any>
+  +history: TaskHistory[]
+  +permissions: Permission[]
+  --
+  +get(key: string): any
+  +set(key: string, value: any): void
+  +clear(): void
+}
+
+class Task {
+  +id: string
+  +type: TaskType
+  +priority: Priority
+  +input: any
+  +dependencies: string[]
+  +timeout: number
+  +retries: number
+  --
+  +validate(): boolean
+}
+
+enum Priority {
+  Critical = 0
+  High = 1
+  Normal = 2
+  Low = 3
+}
+
+class TaskResult {
+  +success: boolean
+  +output: any
+  +artifacts: Artifact[]
+  +metrics: TaskMetrics
+  +errors: Error[]
+}
+
+' Concrete Agent Implementations
+class CodeGenerationAgent {
+  -llm: LanguageModel
+  -codebase: CodebaseContext
+  -cache: CodeCache
+  --
+  +generateCode(spec: CodeSpec): Promise<GeneratedCode>
+  +validateCode(code: string): Promise<boolean>
+  +formatCode(code: string): Promise<string>
+  -retrieveContext(analysis: SpecAnalysis): Promise<CodebaseContext>
+  -buildPrompt(spec: CodeSpec, context: CodebaseContext): string
+}
+
+class TestingAgent {
+  -testFramework: TestFramework
+  -coverage: CoverageCollector
+  --
+  +generateTests(code: string, spec: CodeSpec): Promise<TestSuite>
+  +runTests(tests: TestSuite): Promise<TestResult>
+  +analyzeCoverage(result: TestResult): Promise<CoverageReport>
+}
+
+class BrowserAgent {
+  -browser: Browser
+  -pages: Map<string, Page>
+  --
+  +navigateTo(url: string): Promise<void>
+  +extractData(selector: string): Promise<any>
+  +runTest(testScript: string): Promise<TestResult>
+  +captureScreenshot(): Promise<Buffer>
+  -createSafeFetch(): typeof fetch
+}
+
+class PlanningAgent {
+  -strategizer: Strategizer
+  -estimator: Estimator
+  --
+  +createPlan(description: string, mode: PlanningMode): Promise<ExecutionPlan>
+  +decomposeTasks(requirements: Requirement[]): Promise<Task[]>
+  +estimateResources(phases: Phase[]): Promise<ResourceEstimate>
+  -createDetailedPlan(description: string): Promise<ExecutionPlan>
+  -createFastPlan(description: string): Promise<ExecutionPlan>
+}
+
+class ReviewAgent {
+  -analyzer: CodeAnalyzer
+  -securityScanner: SecurityScanner
+  --
+  +reviewCode(code: string): Promise<ReviewResult>
+  +checkSecurity(code: string): Promise<SecurityReport>
+  +verifyBestPractices(code: string): Promise<ComplianceReport>
+}
+
+' Agent Management
+class AgentManager {
+  -agents: Map<string, Agent>
+  -pool: AgentPool
+  -messageBus: AgentMessageBus
+  --
+  +loadAgents(): Promise<void>
+  +getAgent(id: string): Agent
+  +selectAgent(task: Task): Agent
+  +shutdownAll(): Promise<void>
+}
+
+class AgentPool {
+  -pool: Agent[]
+  -maxSize: number
+  -minSize: number
+  --
+  +acquire(type: AgentType): Promise<Agent>
+  +release(agent: Agent): void
+  -createAgent(type: AgentType): Promise<Agent>
+  -waitForAgent(type: AgentType): Promise<Agent>
+}
+
+class AgentMessageBus {
+  -subscribers: Map<string, Set<AgentMessageHandler>>
+  --
+  +subscribe(agentId: string, handler: AgentMessageHandler): void
+  +unsubscribe(agentId: string, handler: AgentMessageHandler): void
+  +publish(message: AgentMessage): void
+  +broadcast(message: AgentMessage): void
+}
+
+class AgentMessage {
+  +from: string
+  +to: string | string[]
+  +type: MessageType
+  +payload: any
+  +timestamp: number
+  +correlationId: string
+}
+
+enum MessageType {
+  TaskRequest
+  TaskResponse
+  StatusUpdate
+  ResourceRequest
+  ResourceRelease
+  Error
+  Shutdown
+}
+
+' Task Queue
+class TaskQueue {
+  -queues: Map<Priority, Queue<Task>>
+  -executing: Map<string, Task>
+  -history: TaskHistory
+  --
+  +enqueue(task: Task): void
+  +dequeue(priority?: Priority): Task | null
+  -scheduleNext(): void
+}
+
+' Relationships
+Agent <|.. CodeGenerationAgent
+Agent <|.. TestingAgent
+Agent <|.. BrowserAgent
+Agent <|.. PlanningAgent
+Agent <|.. ReviewAgent
+
+Agent "1" *-- "1" AgentContext
+Agent "1" *-- "1" AgentType
+Agent "1" *-- "1" AgentStatus
+
+Task "1" *-- "1" Priority
+Task "1" --> "*" Task : depends on
+
+AgentManager "1" o-- "*" Agent : manages
+AgentManager "1" *-- "1" AgentPool
+AgentManager "1" *-- "1" AgentMessageBus
+
+AgentPool "1" o-- "*" Agent : pools
+
+AgentMessageBus "1" --> "*" AgentMessage : routes
+
+TaskQueue "1" o-- "*" Task : queues
+
+note top of Agent
+  Core interface that all agents must implement.
+  Defines standard lifecycle and communication.
+end note
+
+note right of CodeGenerationAgent
+  Generates code using LLM with full
+  codebase context and pattern matching.
+end note
+
+note right of BrowserAgent
+  Controls headless Chrome for
+  automated testing and web scraping.
+end note
+
+note bottom of AgentManager
+  Orchestrates all agents and manages
+  their lifecycle and communication.
+end note
+
+@enduml

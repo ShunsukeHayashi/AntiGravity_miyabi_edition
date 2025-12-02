@@ -1,0 +1,145 @@
+@startuml AntiGravity Development Workflow
+
+skinparam backgroundColor #FEFEFE
+skinparam activity {
+  BackgroundColor<<Auto>> #C8E6C9
+  BackgroundColor<<Manual>> #FFF9C4
+  BackgroundColor<<Agent>> #E3F2FD
+  BorderColor #424242
+  FontColor #212121
+  ArrowColor #1976D2
+}
+
+title AntiGravity IDE - Development Workflow
+
+|Developer|
+start
+:Developer describes task\nin natural language;
+note right
+  Example:
+  "Implement user authentication
+  with JWT tokens"
+end note
+
+|Mission Control|
+:Parse task description;
+:Determine execution policy;
+
+if (Policy == Turbo?) then (yes)
+  :Auto-execute without approval;
+  <<Auto>>
+else if (Policy == Auto?) then (yes)
+  if (Task is low-risk?) then (yes)
+    :Auto-execute;
+    <<Auto>>
+  else (no)
+    :Request approval;
+    <<Manual>>
+  endif
+else (Off)
+  :Request approval;
+  <<Manual>>
+endif
+
+|Planning Agent|
+:Create implementation plan;
+<<Agent>>
+:Break down into subtasks;
+:Identify dependencies;
+:Estimate resources;
+
+note right
+  Detailed planning includes:
+  - Task decomposition
+  - Dependency graph
+  - Resource allocation
+  - Timeline estimation
+end note
+
+|Mission Control|
+:Display plan to developer;
+
+|Developer|
+if (Approve plan?) then (yes)
+  |Mission Control|
+  :Enqueue tasks in priority order;
+
+  fork
+    |Code Generation Agent|
+    :Generate authentication service;
+    <<Agent>>
+    :Generate JWT utilities;
+    :Generate middleware;
+  fork again
+    |Testing Agent|
+    :Wait for code generation;
+    :Generate unit tests;
+    <<Agent>>
+    :Generate integration tests;
+  fork again
+    |Security Agent|
+    :Review code for vulnerabilities;
+    <<Agent>>
+    :Check JWT implementation;
+    :Verify password hashing;
+  end fork
+
+  |Review Agent|
+  :Analyze code quality;
+  <<Agent>>
+  :Check best practices;
+  :Verify patterns;
+
+  if (All checks passed?) then (yes)
+    |Documentation Agent|
+    :Generate API documentation;
+    <<Agent>>
+    :Update README;
+
+    |Testing Agent|
+    :Run all tests;
+    <<Agent>>
+
+    if (Tests passed?) then (yes)
+      |Deployment Agent|
+      :Create commit;
+      <<Agent>>
+      :Create pull request;
+
+      |Developer|
+      :Review results;
+
+      if (Approve?) then (yes)
+        :Merge PR;
+        stop
+      else (no)
+        :Request modifications;
+        |Mission Control|
+        :Create adjustment tasks;
+        note right: Loop back to agents
+      endif
+    else (no)
+      |Mission Control|
+      :Report test failures;
+      |Developer|
+      :Fix issues manually\nor adjust plan;
+    endif
+  else (no)
+    |Mission Control|
+    :Report issues;
+    |Developer|
+    :Fix issues manually\nor adjust plan;
+  endif
+else (no)
+  :Adjust plan;
+  note right: Loop back to planning
+endif
+
+legend right
+  |=Color |=Meaning |
+  |<#C8E6C9>| Auto-executed |
+  |<#FFF9C4>| Manual action |
+  |<#E3F2FD>| Agent activity |
+endlegend
+
+@enduml
