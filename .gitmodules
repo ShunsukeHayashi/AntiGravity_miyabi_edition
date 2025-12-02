@@ -1,0 +1,3 @@
+[submodule "vscode-upstream"]
+	path = vscode-upstream
+	url = https://github.com/microsoft/vscode.git

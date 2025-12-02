@@ -1,0 +1,492 @@
+# Miyabi Agent Definitions for AntiGravity IDE
+# 21 autonomous agents for complete development automation
+
+# ============================================================================
+# Coding Agents (7)
+# ============================================================================
+
+coding_agents:
+  - name: coordinator
+    display_name: Coordinator Agent (しきろーん)
+    emoji: 🎯
+    role: task_orchestration
+    description: DAG-based task decomposition and parallel execution control
+    capabilities:
+      - task_analysis
+      - dag_generation
+      - critical_path_detection
+      - parallel_execution_planning
+      - agent_coordination
+    triggers:
+      - issue_created
+      - issue_labeled
+    priority: 10
+    max_concurrent: 1
+
+  - name: codegen
+    display_name: CodeGen Agent
+    emoji: 💻
+    role: code_generation
+    description: AI-driven code generation using Claude Sonnet 4
+    capabilities:
+      - typescript_generation
+      - test_generation
+      - documentation_generation
+      - code_refactoring
+    triggers:
+      - issue_assigned
+      - state:implementing
+    priority: 8
+    max_concurrent: 3
+    model: claude-sonnet-4
+
+  - name: review
+    display_name: Review Agent
+    emoji: 🔍
+    role: code_quality
+    description: Code quality assessment and security scanning
+    capabilities:
+      - static_analysis
+      - security_scanning
+      - quality_scoring
+      - best_practices_check
+    triggers:
+      - pull_request_opened
+      - state:reviewing
+    priority: 9
+    max_concurrent: 2
+    quality_threshold: 80
+
+  - name: issue
+    display_name: Issue Agent
+    emoji: 📝
+    role: issue_management
+    description: Issue analysis and automatic labeling with Shikigaku 65-label system
+    capabilities:
+      - issue_classification
+      - complexity_estimation
+      - priority_assignment
+      - label_management
+    triggers:
+      - issue_created
+      - issue_updated
+    priority: 10
+    max_concurrent: 5
+
+  - name: pr
+    display_name: PR Agent
+    emoji: 🔀
+    role: pull_request
+    description: Automatic PR creation with Conventional Commits
+    capabilities:
+      - pr_creation
+      - commit_message_generation
+      - description_generation
+      - draft_pr_management
+    triggers:
+      - state:done
+      - review_approved
+    priority: 7
+    max_concurrent: 3
+
+  - name: deployment
+    display_name: Deployment Agent
+    emoji: 🚀
+    role: cicd
+    description: CI/CD automation with health checks and rollback
+    capabilities:
+      - auto_deployment
+      - health_check
+      - auto_rollback
+      - release_management
+    triggers:
+      - pull_request_merged
+      - tag_created
+    priority: 6
+    max_concurrent: 1
+
+  - name: test
+    display_name: Test Agent
+    emoji: 🧪
+    role: testing
+    description: Automated testing with 80%+ coverage target
+    capabilities:
+      - unit_testing
+      - integration_testing
+      - coverage_reporting
+      - test_generation
+    triggers:
+      - state:testing
+      - pull_request_opened
+    priority: 8
+    max_concurrent: 2
+    coverage_target: 80
+
+# ============================================================================
+# Business Agents (14)
+# ============================================================================
+
+business_agents:
+  - name: entrepreneur
+    display_name: AI Entrepreneur Agent
+    emoji: 💡
+    role: business_strategy
+    description: Comprehensive business planning and startup strategy
+    capabilities:
+      - business_plan_creation
+      - market_validation
+      - revenue_model_design
+      - pitch_deck_generation
+    priority: 5
+    max_concurrent: 1
+
+  - name: self_analysis
+    display_name: Self Analysis Agent
+    emoji: 🔬
+    role: self_assessment
+    description: Career, skill, and achievement detailed analysis
+    capabilities:
+      - skill_assessment
+      - career_analysis
+      - achievement_evaluation
+      - strength_identification
+    priority: 5
+    max_concurrent: 1
+
+  - name: market_research
+    display_name: Market Research Agent
+    emoji: 📊
+    role: market_analysis
+    description: Market trends and competitive analysis (20+ companies)
+    capabilities:
+      - market_trend_analysis
+      - competitor_research
+      - tam_sam_som_calculation
+      - industry_insights
+    priority: 6
+    max_concurrent: 2
+
+  - name: persona
+    display_name: Persona Agent
+    emoji: 👥
+    role: customer_persona
+    description: Detailed customer persona (3-5 personas) and journey design
+    capabilities:
+      - persona_creation
+      - customer_journey_mapping
+      - pain_point_analysis
+      - behavior_modeling
+    priority: 6
+    max_concurrent: 1
+
+  - name: product_concept
+    display_name: Product Concept Agent
+    emoji: 🎨
+    role: product_design
+    description: USP, revenue model, and business model canvas design
+    capabilities:
+      - usp_definition
+      - revenue_model_design
+      - business_model_canvas
+      - value_proposition_design
+    priority: 7
+    max_concurrent: 1
+
+  - name: product_design
+    display_name: Product Design Agent
+    emoji: 🏗️
+    role: service_design
+    description: 6-month content, tech stack, and MVP definition
+    capabilities:
+      - content_planning
+      - tech_stack_selection
+      - mvp_definition
+      - roadmap_creation
+    priority: 7
+    max_concurrent: 1
+
+  - name: content_creation
+    display_name: Content Creation Agent
+    emoji: 📝
+    role: content_production
+    description: Video, article, and educational material production planning
+    capabilities:
+      - video_content_planning
+      - article_writing
+      - tutorial_creation
+      - content_calendar
+    priority: 6
+    max_concurrent: 3
+
+  - name: funnel_design
+    display_name: Funnel Design Agent
+    emoji: 🎯
+    role: funnel_optimization
+    description: Awareness → Purchase → LTV customer funnel optimization
+    capabilities:
+      - funnel_design
+      - conversion_optimization
+      - ltv_maximization
+      - lead_nurturing
+    priority: 7
+    max_concurrent: 1
+
+  - name: sns_strategy
+    display_name: SNS Strategy Agent
+    emoji: 📱
+    role: social_media
+    description: Twitter/Instagram/YouTube SNS strategy and posting calendar
+    capabilities:
+      - social_media_strategy
+      - content_calendar_creation
+      - engagement_optimization
+      - growth_hacking
+    priority: 6
+    max_concurrent: 2
+
+  - name: marketing
+    display_name: Marketing Agent
+    emoji: 📢
+    role: marketing
+    description: Advertising, SEO, SNS customer acquisition execution plan
+    capabilities:
+      - ad_campaign_planning
+      - seo_optimization
+      - content_marketing
+      - growth_strategy
+    priority: 7
+    max_concurrent: 2
+
+  - name: sales
+    display_name: Sales Agent
+    emoji: 💼
+    role: sales
+    description: Lead → Customer conversion maximization and sales process optimization
+    capabilities:
+      - sales_funnel_optimization
+      - lead_qualification
+      - conversion_optimization
+      - sales_automation
+    priority: 7
+    max_concurrent: 2
+
+  - name: crm
+    display_name: CRM Agent
+    emoji: 🤝
+    role: customer_management
+    description: Customer satisfaction and LTV maximization management system
+    capabilities:
+      - customer_segmentation
+      - churn_prediction
+      - ltv_optimization
+      - support_automation
+    priority: 6
+    max_concurrent: 1
+
+  - name: analytics
+    display_name: Analytics Agent
+    emoji: 📈
+    role: data_analysis
+    description: Full data analysis, PDCA cycle execution, continuous improvement
+    capabilities:
+      - data_analysis
+      - kpi_tracking
+      - ab_testing
+      - performance_reporting
+    priority: 7
+    max_concurrent: 2
+
+  - name: youtube
+    display_name: YouTube Agent
+    emoji: 🎬
+    role: youtube_management
+    description: Channel concept design to posting plan with 13 workflows
+    capabilities:
+      - channel_strategy
+      - video_optimization
+      - thumbnail_design
+      - growth_tactics
+    priority: 6
+    max_concurrent: 1
+
+# ============================================================================
+# Agent Groups
+# ============================================================================
+
+agent_groups:
+  core_development:
+    - coordinator
+    - codegen
+    - review
+    - test
+
+  github_automation:
+    - issue
+    - pr
+    - deployment
+
+  business_strategy:
+    - entrepreneur
+    - market_research
+    - product_concept
+    - product_design
+
+  customer_acquisition:
+    - persona
+    - funnel_design
+    - marketing
+    - sales
+
+  content_marketing:
+    - content_creation
+    - sns_strategy
+    - youtube
+
+  customer_success:
+    - crm
+    - analytics
+
+# ============================================================================
+# Workflow Definitions
+# ============================================================================
+
+workflows:
+  # Issue → PR → Deploy workflow
+  full_automation:
+    name: Full Development Automation
+    steps:
+      - agent: issue
+        action: analyze_and_label
+      - agent: coordinator
+        action: create_execution_plan
+      - agent: codegen
+        action: implement_code
+      - agent: review
+        action: quality_check
+        condition: quality >= 80
+      - agent: test
+        action: run_tests
+        condition: coverage >= 80
+      - agent: pr
+        action: create_pull_request
+      - agent: deployment
+        action: deploy
+        condition: branch == 'main'
+
+  # Business planning workflow
+  business_launch:
+    name: Business Launch Planning
+    steps:
+      - agent: self_analysis
+        action: analyze_strengths
+      - agent: market_research
+        action: research_market
+      - agent: persona
+        action: create_personas
+      - agent: product_concept
+        action: design_product
+      - agent: product_design
+        action: create_mvp_plan
+      - agent: marketing
+        action: create_strategy
+      - agent: sales
+        action: design_funnel
+
+  # Content creation workflow
+  content_production:
+    name: Content Production Pipeline
+    steps:
+      - agent: content_creation
+        action: plan_content
+      - agent: sns_strategy
+        action: create_calendar
+      - agent: youtube
+        action: optimize_channel
+      - agent: analytics
+        action: track_performance
+
+# ============================================================================
+# Agent Communication
+# ============================================================================
+
+communication:
+  protocol: tmux-send-keys
+  async_enabled: true
+  message_format: json
+
+  channels:
+    - name: main
+      type: broadcast
+      subscribers: all
+
+    - name: coding
+      type: group
+      subscribers:
+        - coordinator
+        - codegen
+        - review
+        - test
+
+    - name: business
+      type: group
+      subscribers:
+        - entrepreneur
+        - market_research
+        - marketing
+        - sales
+
+# ============================================================================
+# Agent Permissions
+# ============================================================================
+
+permissions:
+  coordinator:
+    - read_all
+    - write_all
+    - execute_agents
+    - manage_workflow
+
+  codegen:
+    - read_code
+    - write_code
+    - run_tests
+
+  review:
+    - read_code
+    - write_comments
+    - approve_pr
+    - reject_pr
+
+  deployment:
+    - read_code
+    - deploy_application
+    - rollback_deployment
+
+  business_agents:
+    - read_data
+    - write_reports
+    - create_documents
+
+# ============================================================================
+# Agent Metrics
+# ============================================================================
+
+metrics:
+  track:
+    - execution_time
+    - success_rate
+    - quality_score
+    - error_count
+
+  alerts:
+    - type: execution_failure
+      threshold: 3
+      action: notify_conductor
+
+    - type: quality_low
+      threshold: 60
+      action: escalate_to_review
+
+    - type: timeout
+      threshold_minutes: 30
+      action: kill_and_restart
