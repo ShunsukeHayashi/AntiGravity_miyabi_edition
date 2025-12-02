@@ -58,6 +58,23 @@ AntiGravity IDE
 - **Testing**: Jest
 - **CI/CD**: GitHub Actions
 
+## Documentation
+
+### Core Documentation
+- **[Architecture](./docs/ARCHITECTURE.md)** - System architecture and design patterns
+- **[Technical Details](./docs/TECHNICAL_DETAILS.md)** - In-depth implementation details
+
+### Comparison & Analysis
+- **[VS Code vs AntiGravity](./docs/VSCODE_VS_ANTIGRAVITY.md)** - Comprehensive comparison with VS Code
+  - Feature comparison
+  - Performance analysis
+  - Use case scenarios
+  - Migration guide
+
+### Policies
+- **[Contributing Policy](./docs/CONTRIBUTING.md)** - Contribution guidelines (proprietary)
+- **[Security Policy](./SECURITY.md)** - Security guidelines and reporting
+
 ## Getting Started
 
 ### Prerequisites
