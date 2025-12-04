@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;">
+  <meta name="description" content="AntiGravity IDE - AI-Powered Development Environment with Miyabi Agent Orchestra">
+  <title>AntiGravity IDE - AI-Powered Development</title>
+
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==================== Design Tokens ==================== */
+    :root {
+      /* Colors - Premium Dark Theme */
+      --color-bg-primary: hsl(225, 25%, 8%);
+      --color-bg-secondary: hsl(225, 20%, 12%);
+      --color-bg-tertiary: hsl(225, 18%, 16%);
+      --color-bg-elevated: hsl(225, 15%, 20%);
+
+      /* Accent Colors - Vibrant Gradient Palette */
+      --color-accent-primary: hsl(250, 100%, 65%);
+      --color-accent-secondary: hsl(280, 100%, 60%);
+      --color-accent-tertiary: hsl(200, 100%, 50%);
+      --color-accent-success: hsl(150, 80%, 45%);
+      --color-accent-warning: hsl(40, 100%, 50%);
+      --color-accent-error: hsl(0, 85%, 60%);
+
+      /* Text Colors */
+      --color-text-primary: hsl(0, 0%, 98%);
+      --color-text-secondary: hsl(225, 15%, 65%);
+      --color-text-muted: hsl(225, 10%, 45%);
+
+      /* Border Colors */
+      --color-border: hsla(225, 20%, 40%, 0.3);
+      --color-border-active: hsla(250, 100%, 65%, 0.5);
+
+      /* Glass Effects */
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-highlight: rgba(255, 255, 255, 0.1);
+
+      /* Gradients */
+      --gradient-primary: linear-gradient(135deg, hsl(250, 100%, 65%) 0%, hsl(280, 100%, 60%) 50%, hsl(320, 90%, 55%) 100%);
+      --gradient-secondary: linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(250, 100%, 65%) 100%);
+      --gradient-dark: linear-gradient(180deg, hsl(225, 25%, 10%) 0%, hsl(225, 25%, 6%) 100%);
+      --gradient-glow: radial-gradient(ellipse at center, hsla(250, 100%, 65%, 0.15) 0%, transparent 70%);
+
+      /* Shadows */
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 40px hsla(250, 100%, 65%, 0.3);
+      --shadow-glow-success: 0 0 20px hsla(150, 80%, 45%, 0.4);
+
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+
+      /* Spacing */
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
+      --space-2xl: 48px;
+
+      /* Transitions */
+      --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* ==================== Reset & Base ==================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      min-height: 100vh;
+      overflow: hidden;
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ==================== App Container ==================== */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      background: var(--gradient-dark);
+      position: relative;
+    }
+
+    /* Animated Background Glow */
+    .app-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: var(--gradient-glow);
+      animation: rotateGlow 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes rotateGlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ==================== Header ==================== */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      -webkit-app-region: drag;
+      position: relative;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 30px hsla(250, 100%, 65%, 0.5);
+    }
+
+    .version-badge {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--color-accent-primary);
+      padding: 4px 10px;
+      background: hsla(250, 100%, 65%, 0.15);
+      border: 1px solid hsla(250, 100%, 65%, 0.3);
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .header-center {
+      display: flex;
+      gap: 6px;
+      -webkit-app-region: no-drag;
+      background: var(--glass-bg);
+      padding: 4px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+    }
+
+    .mode-btn {
+      padding: 8px 20px;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mode-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: var(--transition-normal);
+    }
+
+    .mode-btn:hover {
+      color: var(--color-text-primary);
+    }
+
+    .mode-btn:hover::before {
+      opacity: 0.1;
+    }
+
+    .mode-btn.active {
+      color: white;
+      background: var(--gradient-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .mode-btn.active::before {
+      opacity: 0;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      -webkit-app-region: no-drag;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      padding: 6px 14px;
+      background: hsla(150, 80%, 45%, 0.1);
+      border: 1px solid hsla(150, 80%, 45%, 0.3);
+      border-radius: var(--radius-full);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-accent-success);
+      box-shadow: var(--shadow-glow-success);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: scale(0.9);
+      }
+    }
+
+    /* ==================== Main Content ==================== */
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==================== Sidebar ==================== */
+    .sidebar {
+      width: 280px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      animation: slideInLeft 0.5s ease-out;
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .sidebar-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .agent-card {
+      padding: 16px 12px;
+      background: var(--glass-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .agent-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: var(--transition-normal);
+    }
+
+    .agent-card:hover {
+      border-color: var(--color-border-active);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .agent-card:hover::before {
+      opacity: 0.05;
+    }
+
+    .agent-card.active {
+      border-color: var(--color-accent-primary);
+      background: hsla(250, 100%, 65%, 0.1);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .agent-card.active::before {
+      opacity: 0.1;
+    }
+
+    .agent-emoji {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .agent-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .agent-status {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-accent-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .agent-status::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* ==================== Center Panel ==================== */
+    .center-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: transparent;
+      position: relative;
+    }
+
+    .mission-control {
+      flex: 1;
+      padding: 32px;
+      overflow-y: auto;
+    }
+
+    .welcome-section {
+      text-align: center;
+      padding: 48px 24px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .welcome-icon {
+      font-size: 80px;
+      margin-bottom: 24px;
+      display: inline-block;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .welcome-title {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.03em;
+    }
+
+    .welcome-subtitle {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      margin-bottom: 40px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .quick-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-secondary);
+      opacity: 0;
+      transition: var(--transition-normal);
+    }
+
+    .action-btn:hover {
+      transform: translateY(-3px);
+      border-color: var(--color-border-active);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .action-btn:hover::before {
+      opacity: 0.1;
+    }
+
+    .action-btn-primary {
+      background: var(--gradient-primary);
+      border: none;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .action-btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 50px hsla(250, 100%, 65%, 0.4);
+    }
+
+    .action-btn-primary::before {
+      display: none;
+    }
+
+    /* ==================== Stats Section ==================== */
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 48px;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .stat-card {
+      padding: 24px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: var(--transition-normal);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-border-active);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-value {
+      font-size: 40px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin-top: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==================== Input Bar ==================== */
+    .input-bar {
+      padding: 20px 32px 24px;
+      background: linear-gradient(180deg, transparent 0%, var(--color-bg-secondary) 100%);
+      animation: slideInUp 0.5s ease-out 0.3s both;
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--glass-border);
+      transition: var(--transition-normal);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .input-wrapper:focus-within {
+      border-color: var(--color-accent-primary);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .input-icon {
+      font-size: 20px;
+      opacity: 0.7;
+    }
+
+    .input-field {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--color-text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .input-field::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    .send-btn {
+      padding: 12px 24px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: var(--radius-lg);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: var(--transition-normal);
+      box-shadow: var(--shadow-md);
+    }
+
+    .send-btn:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .send-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ==================== Right Panel ==================== */
+    .right-panel {
+      width: 320px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      animation: slideInRight 0.5s ease-out;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .panel-header {
+      padding: 20px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .panel-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    .panel-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    .activity-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .activity-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 16px;
+      background: var(--glass-bg);
+      border-radius: var(--radius-lg);
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+      transition: var(--transition-normal);
+      animation: fadeInUp 0.4s ease-out both;
+    }
+
+    .activity-item:nth-child(1) { animation-delay: 0.1s; }
+    .activity-item:nth-child(2) { animation-delay: 0.2s; }
+    .activity-item:nth-child(3) { animation-delay: 0.3s; }
+    .activity-item:nth-child(4) { animation-delay: 0.4s; }
+
+    .activity-item:hover {
+      border-color: var(--glass-border);
+      transform: translateX(4px);
+    }
+
+    .activity-icon {
+      font-size: 22px;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .activity-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .activity-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 4px;
+    }
+
+    .activity-time {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    /* ==================== Scrollbar ==================== */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <div class="logo">AntiGravity IDE</div>
+        <span class="version-badge">v0.1.0 Beta</span>
+      </div>
+      <nav class="header-center">
+        <button class="mode-btn active" id="mode-planning">Planning</button>
+        <button class="mode-btn" id="mode-execution">Execution</button>
+        <button class="mode-btn" id="mode-verification">Verification</button>
+      </nav>
+      <div class="header-right">
+        <div class="status-indicator">
+          <span class="status-dot"></span>
+          <span>7 Agents Online</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Sidebar - Agent Orchestra -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-title">Miyabi Framework</div>
+          <div class="sidebar-subtitle">Agent Orchestra</div>
+        </div>
+        <div class="agent-grid">
+          <div class="agent-card active" data-agent="coordinator">
+            <span class="agent-emoji">🎯</span>
+            <div class="agent-name">Coordinator</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="issue">
+            <span class="agent-emoji">📋</span>
+            <div class="agent-name">Issue</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="codegen">
+            <span class="agent-emoji">💻</span>
+            <div class="agent-name">CodeGen</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="review">
+            <span class="agent-emoji">🔍</span>
+            <div class="agent-name">Review</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="test">
+            <span class="agent-emoji">🧪</span>
+            <div class="agent-name">Test</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="pr">
+            <span class="agent-emoji">🔀</span>
+            <div class="agent-name">PR</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="deploy">
+            <span class="agent-emoji">🚀</span>
+            <div class="agent-name">Deploy</div>
+            <div class="agent-status">Ready</div>
+          </div>
+          <div class="agent-card" data-agent="business">
+            <span class="agent-emoji">💼</span>
+            <div class="agent-name">Business</div>
+            <div class="agent-status" style="color: var(--color-accent-primary)">14 Agents</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center - Mission Control -->
+      <section class="center-panel">
+        <div class="mission-control">
+          <div class="welcome-section">
+            <div class="welcome-icon">🚀</div>
+            <h1 class="welcome-title">Welcome to AntiGravity</h1>
+            <p class="welcome-subtitle">AI-Powered IDE with Miyabi Agent Orchestra. Transform your ideas into production-ready code.</p>
+            <div class="quick-actions">
+              <button class="action-btn action-btn-primary" id="btn-new-task">
+                <span>⚡</span> New Task
+              </button>
+              <button class="action-btn" id="btn-open-project">
+                <span>📁</span> Open Project
+              </button>
+              <button class="action-btn" id="btn-settings">
+                <span>⚙️</span> Settings
+              </button>
+            </div>
+          </div>
+
+          <div class="stats-section">
+            <div class="stat-card">
+              <div class="stat-value">21</div>
+              <div class="stat-label">Total Agents</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">7</div>
+              <div class="stat-label">Coding Agents</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">14</div>
+              <div class="stat-label">Business Agents</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">0</div>
+              <div class="stat-label">Active Tasks</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="input-bar">
+          <div class="input-wrapper">
+            <span class="input-icon">💬</span>
+            <input type="text" class="input-field" id="message-input" placeholder="Describe what you want to build or ask a question...">
+            <button class="send-btn" id="send-btn">Send</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel - Activity -->
+      <aside class="right-panel">
+        <div class="panel-header">
+          <div class="panel-title">Activity Feed</div>
+          <div class="panel-subtitle">Recent Events</div>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <span class="activity-icon">✅</span>
+            <div class="activity-content">
+              <div class="activity-title">System Initialized</div>
+              <div class="activity-time">Just now</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">🎯</span>
+            <div class="activity-content">
+              <div class="activity-title">Coordinator Agent Ready</div>
+              <div class="activity-time">Just now</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">💼</span>
+            <div class="activity-content">
+              <div class="activity-title">14 Business Agents Loaded</div>
+              <div class="activity-time">Just now</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <span class="activity-icon">🌸</span>
+            <div class="activity-content">
+              <div class="activity-title">Miyabi Framework Active</div>
+              <div class="activity-time">Just now</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Mode button interactions with animation
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.mode-btn').forEach(b => {
+          b.classList.remove('active');
+          b.style.transform = 'scale(1)';
+        });
+        btn.classList.add('active');
+        btn.style.transform = 'scale(1.05)';
+        setTimeout(() => btn.style.transform = 'scale(1)', 150);
+      });
+    });
+
+    // Agent card interactions with ripple effect
+    document.querySelectorAll('.agent-card').forEach(card => {
+      card.addEventListener('click', () => {
+        document.querySelectorAll('.agent-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+
+        // Add activity
+        const agentName = card.querySelector('.agent-name').textContent;
+        addActivity(`${card.querySelector('.agent-emoji').textContent}`, `${agentName} Agent Selected`);
+      });
+    });
+
+    // Input handling with feedback
+    const inputField = document.getElementById('message-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    function handleSend() {
+      const message = inputField.value.trim();
+      if (message) {
+        console.log('Sending:', message);
+        addActivity('📤', `Task: "${message.substring(0, 30)}${message.length > 30 ? '...' : ''}"`);
+        inputField.value = '';
+
+        // Button feedback
+        sendBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => sendBtn.style.transform = 'scale(1)', 100);
+      }
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    inputField.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleSend();
+    });
+
+    // Quick action buttons
+    document.getElementById('btn-new-task').addEventListener('click', () => {
+      addActivity('⚡', 'New Task initiated');
+      inputField.focus();
+    });
+
+    document.getElementById('btn-open-project').addEventListener('click', () => {
+      addActivity('📁', 'Opening project browser...');
+    });
+
+    document.getElementById('btn-settings').addEventListener('click', () => {
+      addActivity('⚙️', 'Opening settings...');
+    });
+
+    // Add activity helper
+    function addActivity(icon, title) {
+      const activityList = document.querySelector('.activity-list');
+      const item = document.createElement('div');
+      item.className = 'activity-item';
+      item.innerHTML = `
+        <span class="activity-icon">${icon}</span>
+        <div class="activity-content">
+          <div class="activity-title">${title}</div>
+          <div class="activity-time">Just now</div>
+        </div>
+      `;
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(-10px)';
+      activityList.insertBefore(item, activityList.firstChild);
+
+      // Animate in
+      requestAnimationFrame(() => {
+        item.style.transition = 'all 0.3s ease-out';
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      });
+
+      // Keep only last 10 items
+      while (activityList.children.length > 10) {
+        activityList.removeChild(activityList.lastChild);
+      }
+    }
+  </script>
+</body>
+</html>

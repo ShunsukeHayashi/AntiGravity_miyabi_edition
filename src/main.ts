@@ -41,14 +41,22 @@ function createWindow(): void {
   logger.info('Creating main window...');
 
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 1400,
+    height: 900,
+    minWidth: 1000,
+    minHeight: 600,
+    title: 'AntiGravity IDE',
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  // HTMLファイルをロード
+  const htmlPath = path.join(__dirname, '../src/renderer/index.html');
+  mainWindow.loadFile(htmlPath);
 
   // 開発時はDevToolsを自動で開く
   if (process.env.NODE_ENV === 'development') {
