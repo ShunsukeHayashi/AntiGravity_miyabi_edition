@@ -38,6 +38,8 @@
     "format:check": "prettier --check \"src/**/*.ts\""
   },
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.2",
+    "@octokit/rest": "^22.0.1",
     "@tanstack/react-query": "^5.17.0",
     "clsx": "^2.1.0",
     "electron": "^28.0.0",
