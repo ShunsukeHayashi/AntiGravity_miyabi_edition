@@ -4,8 +4,64 @@
 
 ## 📋 規約一覧
 
-### 1. planning-mode-guard.md ⭐
-Planning Mode 動作制御
+### 公式 Google Antigravity ルール 🏆
+
+#### 1. antigravity-mode-system.md 🏆
+**Google Antigravity 公式モードシステム**
+
+**内容:**
+- **PLANNING Mode** - 計画作成、承認取得
+- **EXECUTION Mode** - コード実装
+- **VERIFICATION Mode** - テスト・検証
+- task_boundary / notify_user ツール
+- TaskName / TaskSummary / TaskStatus
+- モード遷移ルール
+
+**対象:** すべての複雑なタスク
+**重要度:** 🔴 最重要
+**出典:** Google DeepMind Antigravity 公式システムプロンプト
+
+---
+
+#### 2. antigravity-artifacts.md 🏆
+**Google Antigravity Artifacts システム**
+
+**内容:**
+- **task.md** - タスクチェックリスト
+- **implementation_plan.md** - 実装計画書
+- **walkthrough.md** - 完了報告書
+- Markdown フォーマットガイドライン
+- GitHub Alerts の使用方法
+- Carousel の使用方法
+
+**対象:** すべてのタスク（Planning, Execution, Verification）
+**重要度:** 🔴 最重要
+**出典:** Google DeepMind Antigravity 公式システムプロンプト
+
+---
+
+#### 3. antigravity-web-design.md 🏆
+**Google Antigravity Web Design Standards**
+
+**内容:**
+- **Rich Aesthetics** - 鮮やかな色彩、ダークモード
+- **Visual Excellence** - プレミアムデザイン
+- **Dynamic Design** - マイクロアニメーション
+- Technology Stack（HTML/CSS/JS）
+- Implementation Workflow
+- SEO Best Practices
+
+**対象:** すべてのWeb開発
+**重要度:** 🔴 最重要
+**警告:** *"If your web app looks simple and basic then you have FAILED!"*
+**出典:** Google DeepMind Antigravity 公式システムプロンプト
+
+---
+
+### Miyabi Framework ルール 🌸
+
+#### 4. planning-mode-guard.md ⭐
+**Planning Mode 動作制御**
 
 **内容:**
 - Planning Mode での動作ルール
@@ -13,15 +69,14 @@ Planning Mode 動作制御
 - 言語プロトコル（ユーザーの言語で応答）
 - Execution Mode への移行条件
 
-**対象:**
-すべてのAI Agent
-
+**対象:** すべてのAI Agent
 **重要度:** 🔴 最重要
+**出典:** windsurf-antigravity-rules (MIT)
 
 ---
 
-### 2. task-classification.md ⭐
-タスク分類と実行戦略
+#### 5. task-classification.md ⭐
+**タスク分類と実行戦略**
 
 **内容:**
 - 🟢 軽量タスク（即座に実行）
@@ -30,15 +85,16 @@ Planning Mode 動作制御
 - 並列処理戦略
 - 品質基準
 
-**対象:**
-すべてのタスク実行
-
+**対象:** すべてのタスク実行
 **重要度:** 🔴 最重要
+**出典:** windsurf-antigravity-rules (MIT)
 
 ---
 
-### 3. code-style-guide.md
-TypeScript コーディングスタイルガイド
+### TypeScript / AI コード生成ルール
+
+#### 6. code-style-guide.md
+**TypeScript コーディングスタイルガイド**
 
 **内容:**
 - TypeScript設定（strict mode）
@@ -49,13 +105,12 @@ TypeScript コーディングスタイルガイド
 - エラーハンドリング
 - テストコード規約
 
-**対象:**
-すべての TypeScript コード
+**対象:** すべての TypeScript コード
 
 ---
 
-### 4. code-generation-guide.md
-AI駆動コード生成ガイドライン
+#### 7. code-generation-guide.md
+**AI駆動コード生成ガイドライン**
 
 **内容:**
 - モジュール分割の原則
@@ -66,8 +121,7 @@ AI駆動コード生成ガイドライン
 - 非同期処理
 - 実装パターン
 
-**対象:**
-CodeGenAgent による自動生成コード
+**対象:** CodeGenAgent による自動生成コード
 
 ## 🎯 規約の適用
 

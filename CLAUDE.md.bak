@@ -66,40 +66,7 @@ Google AntiGravityにインスパイアされたAI駆動のIDEで、VS Codeを�
 6. **PRAgent** → Draft PR作成
 7. **DeploymentAgent** → マージ後に自動デプロイ
 
-
-## 🏆 公式 Google Antigravity ルール
-
-AntiGravity IDEは、**Google DeepMindの公式Antigravityシステムプロンプト**に基づいて構築されています。
-
-### 1. Antigravity Mode System
-
-**3つのモード**:
-- **PLANNING Mode** - コードベース調査、要件理解、実装計画作成
-- **EXECUTION Mode** - コード実装、ファイル変更
-- **VERIFICATION Mode** - テスト実行、動作確認、walkthrough作成
-
-**詳細**: `.agent/rules/antigravity-mode-system.md`
-
-### 2. Artifacts System
-
-**3つのArtifacts**:
-- **task.md** - タスクチェックリスト（[ ], [/], [x]マーカー）
-- **implementation_plan.md** - 実装計画書（ユーザー承認必須）
-- **walkthrough.md** - 完了報告書（スクリーンショット含む）
-
-**詳細**: `.agent/rules/antigravity-artifacts.md`
-
-### 3. Web Design Standards
-
-**必須要件**:
-- ✅ Rich Aesthetics（鮮やかな色彩、ダークモード、グラスモーフィズム）
-- ✅ Visual Excellence（Google Fonts、グラデーション、マイクロアニメーション）
-- ✅ Premium Design（最先端でプレミアムに感じるデザイン）
-- ⚠️ **重要**: "If your web app looks simple and basic then you have FAILED!"
-
-**詳細**: `.agent/rules/antigravity-web-design.md`
-
-
+**全工程が自律実行、人間の介入は最小限。**
 
 ## ラベル体系（識学理論準拠）
 
@@ -342,97 +309,6 @@ ANTHROPIC_API_KEY=sk-ant-xxxxx
 
 # リポジトリ名（オプション - GitHub MCP）
 REPOSITORY=owner/repo
-```
-
-## 🌸 Miyabi Infrastructure
-
-### Configuration Files
-
-**`.miyabi/config.yml`** - Miyabiフレームワーク設定
-- プロジェクト情報
-- Agent Orchestra設定
-- GitHub統合設定
-- ラベル体系（65ラベル）
-- AI設定（Claude Sonnet 4）
-- MCP設定
-- ビルド・テスト設定
-- デプロイ設定
-
-**`.miyabi/agents.yml`** - 21 Agent定義
-- **Coding Agents (7)**: Coordinator, CodeGen, Review, Issue, PR, Deployment, Test
-- **Business Agents (14)**: Entrepreneur, SelfAnalysis, MarketResearch, Persona, ProductConcept, ProductDesign, ContentCreation, FunnelDesign, SNSStrategy, Marketing, Sales, CRM, Analytics, YouTube
-- Workflows定義
-- Agent通信プロトコル
-- Agent権限設定
-
-### Utility Scripts
-
-**`scripts/miyabi-init.sh`** - Miyabi初期化スクリプト
-- 環境変数設定
-- エイリアス定義（30+個）
-- Agent切り替え機能
-- ステータス表示
-
-使用方法:
-```bash
-source scripts/miyabi-init.sh
-ag-info              # クイックヘルプ
-ag-miyabi-status     # 詳細ステータス
-ag-agent-switch coordinator  # Agent切り替え
-```
-
-**`scripts/setup-orchestra.sh`** - Agent Orchestra セットアップ
-- tmuxセッション作成（10ウィンドウ）
-- Agent別ウィンドウ配置
-- Conductor + 7 Agents + IDE-Core + Service
-
-使用方法:
-```bash
-./scripts/setup-orchestra.sh
-# Ctrl+b 0-9 でウィンドウ切り替え
-# Ctrl+b d でデタッチ
-```
-
-**`scripts/mcp-launcher.sh`** - MCP Server管理
-- MCPサーバーリスト表示
-- サーバーステータス確認
-- サーバーテスト
-- サーバー起動
-
-使用方法:
-```bash
-./scripts/mcp-launcher.sh list
-./scripts/mcp-launcher.sh status github-enhanced
-./scripts/mcp-launcher.sh launch github-enhanced
-```
-
-### Context Documentation
-
-**`.claude/context/`** - Claude Code コンテキストモジュール
-
-- **`README.md`** - コンテキスト概要
-- **`agents.md`** - Miyabi Agent システム詳細（21 Agents、ワークフロー）
-- **`development.md`** - 開発ガイドライン（コーディング規約、テスト、Git workflow）
-- **`mcp.md`** - MCP Server統合（5サーバー、使用方法）
-
-Claude Codeはこれらのファイルを自動的に参照してプロジェクト理解を深めます。
-
-### 開発フロー
-
-```bash
-# 1. Miyabi初期化
-source scripts/miyabi-init.sh
-
-# 2. Agent Orchestraセットアップ
-./scripts/setup-orchestra.sh
-
-# 3. MCPサーバー起動（必要に応じて）
-./scripts/mcp-launcher.sh launch github-enhanced
-
-# 4. 開発開始
-ag-build        # ビルド
-ag-test         # テスト
-ag-dev          # Electronアプリ起動
 ```
 
 ## サポート

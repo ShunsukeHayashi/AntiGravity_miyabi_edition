@@ -10,10 +10,16 @@
 ├── ANTIGRAVITY_FEATURES.md            # AntiGravity機能仕様
 ├── rules/                             # コーディング規約
 │   ├── README.md                      # 規約概要
+│   ├── antigravity-mode-system.md     # 公式Antigravityモードシステム 🏆
+│   ├── antigravity-artifacts.md       # 公式Artifacts (task/plan/walkthrough) 🏆
+│   ├── antigravity-web-design.md      # 公式Web Design Standards 🏆
 │   ├── planning-mode-guard.md         # Planning Mode制御 ⭐
 │   ├── task-classification.md         # タスク分類戦略 ⭐
 │   ├── code-style-guide.md            # TypeScript規約
-│   └── code-generation-guide.md       # AI生成ガイドライン
+│   ├── code-generation-guide.md       # AI生成ガイドライン
+│   └── official-antigravity/          # 公式システムプロンプト（参照用）
+│       ├── planning-mode.txt          # Planning Mode プロンプト
+│       └── fast-prompt.txt            # Fast Prompt プロンプト
 └── workflows/                         # ワークフロー定義
     ├── README.md                      # ワークフロー概要
     ├── generate-unit-tests.md         # ユニットテスト生成
@@ -62,17 +68,23 @@ Claude Code で以下のコマンドが使用可能です：
 
 ## コーディング規約
 
-### スタイルガイド
+### 公式 Google Antigravity ルール 🏆
 
-`rules/code-style-guide.md` に従って開発します：
+AntiGravity IDEは、Google DeepMindの公式Antigravityシステムプロンプトに基づいています：
 
-- TypeScript strict mode
-- Prettier フォーマット（2スペースインデント）
-- ESLint 準拠
+1. **antigravity-mode-system.md** - PLANNING/EXECUTION/VERIFICATIONモードシステム
+2. **antigravity-artifacts.md** - task.md, implementation_plan.md, walkthrough.md
+3. **antigravity-web-design.md** - Rich Aesthetics, Premium Design Standards
 
-### コード生成ガイドライン
+### Miyabi Framework ルール 🌸
 
-`rules/code-generation-guide.md` に AI によるコード生成の原則が記載されています。
+4. **planning-mode-guard.md** - Planning Mode動作制御、言語プロトコル
+5. **task-classification.md** - 3段階タスク分類（軽量/標準/重要）
+
+### TypeScript / AI コード生成
+
+6. **code-style-guide.md** - TypeScript strict mode, Prettier, ESLint
+7. **code-generation-guide.md** - AI駆動コード生成の原則
 
 ## ワークフロー
 

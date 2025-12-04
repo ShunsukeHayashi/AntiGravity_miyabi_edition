@@ -1,0 +1,315 @@
+# Miyabi Configuration for AntiGravity IDE
+# AI-powered development orchestration system
+
+project:
+  name: AntiGravity IDE
+  version: 0.1.0
+  description: AI-powered IDE with agent-first architecture
+  repository: https://github.com/ShunsukeHayashi/AntiGravity
+
+# ============================================================================
+# Framework Configuration
+# ============================================================================
+
+miyabi:
+  version: 1.0.0
+  mode: development  # development | production | testing
+  auto_commit: false
+  auto_pr: false
+  auto_deploy: false
+
+# ============================================================================
+# Agent Orchestra
+# ============================================================================
+
+orchestra:
+  enabled: true
+  coordinator: coordinator
+  max_parallel_agents: 3
+  timeout_minutes: 30
+
+  # Agent execution policy
+  policy:
+    auto_assign: true      # Automatically assign issues to agents
+    require_approval: true  # Require human approval before execution
+    quality_gate: 80       # Minimum quality score (0-100)
+
+# ============================================================================
+# GitHub Integration
+# ============================================================================
+
+github:
+  enabled: true
+  auto_label: true
+  auto_milestone: true
+
+  # Issue configuration
+  issue:
+    auto_create: false
+    template: .github/ISSUE_TEMPLATE/agent-task.md
+    labels:
+      priority: true
+      type: true
+      agent: true
+      complexity: true
+
+  # Pull Request configuration
+  pr:
+    draft: true
+    auto_merge: false
+    require_reviews: 1
+    conventional_commits: true
+
+# ============================================================================
+# Label System (Shikigaku Theory)
+# ============================================================================
+
+labels:
+  # Type labels
+  type:
+    - bug
+    - feature
+    - refactor
+    - docs
+    - test
+    - chore
+    - security
+
+  # Priority labels
+  priority:
+    - P0-Critical
+    - P1-High
+    - P2-Medium
+    - P3-Low
+
+  # State labels
+  state:
+    - pending
+    - analyzing
+    - implementing
+    - reviewing
+    - testing
+    - deploying
+    - done
+    - blocked
+
+  # Agent labels
+  agent:
+    - agent:coordinator
+    - agent:codegen
+    - agent:review
+    - agent:issue
+    - agent:pr
+    - agent:deployment
+    - agent:test
+
+  # Complexity labels
+  complexity:
+    - small    # 1-4 hours
+    - medium   # 4-8 hours
+    - large    # 1-3 days
+    - xlarge   # 3-7 days
+
+  # Phase labels
+  phase:
+    - planning
+    - design
+    - implementation
+    - testing
+    - deployment
+
+  # Impact labels
+  impact:
+    - breaking
+    - major
+    - minor
+    - patch
+
+  # Category labels
+  category:
+    - frontend
+    - backend
+    - infra
+    - dx         # Developer Experience
+    - security
+
+# ============================================================================
+# AI Configuration
+# ============================================================================
+
+ai:
+  provider: anthropic
+  model: claude-sonnet-4
+
+  # API configuration
+  anthropic:
+    api_key_env: ANTHROPIC_API_KEY
+    max_tokens: 4096
+    temperature: 0.7
+
+  # Code generation settings
+  codegen:
+    language: typescript
+    style_guide: .prettierrc
+    lint_rules: .eslintrc.json
+    test_framework: jest
+
+  # Review settings
+  review:
+    quality_threshold: 80
+    security_scan: true
+    performance_check: true
+
+# ============================================================================
+# MCP (Model Context Protocol) Servers
+# ============================================================================
+
+mcp:
+  enabled: true
+  config_path: .agent/mcp.json
+
+  servers:
+    - ide-integration
+    - github-enhanced
+    - project-context
+    - filesystem
+
+  # Server priorities (1-10, higher is more important)
+  priorities:
+    github-enhanced: 10
+    ide-integration: 8
+    project-context: 7
+    filesystem: 6
+
+# ============================================================================
+# Build & Test Configuration
+# ============================================================================
+
+build:
+  command: npm run build
+  output_dir: out
+  clean_before_build: false
+
+test:
+  command: npm test
+  coverage_threshold: 80
+  watch_mode: false
+
+lint:
+  command: npm run lint
+  auto_fix: false
+
+format:
+  command: npm run format
+  auto_format: false
+
+# ============================================================================
+# Deployment Configuration
+# ============================================================================
+
+deployment:
+  enabled: false
+  provider: electron-builder  # electron-builder | github-actions
+
+  electron:
+    platforms:
+      - mac
+      - linux
+      - win
+    output_dir: dist
+
+  auto_deploy:
+    enabled: false
+    branches:
+      - main
+      - release/*
+
+# ============================================================================
+# Monitoring & Logging
+# ============================================================================
+
+monitoring:
+  enabled: true
+  log_level: info  # debug | info | warn | error
+  log_file: .miyabi/logs/miyabi.log
+
+  metrics:
+    track_agent_performance: true
+    track_build_times: true
+    track_test_coverage: true
+
+# ============================================================================
+# Security
+# ============================================================================
+
+security:
+  scan_dependencies: true
+  scan_code: true
+
+  secrets:
+    detect: true
+    whitelist:
+      - .env.example
+
+  allowed_actions:
+    - read
+    - write
+    - execute
+
+# ============================================================================
+# Notification Settings
+# ============================================================================
+
+notifications:
+  enabled: false
+
+  channels:
+    slack:
+      enabled: false
+      webhook_url_env: SLACK_WEBHOOK_URL
+
+    discord:
+      enabled: false
+      webhook_url_env: DISCORD_WEBHOOK_URL
+
+    email:
+      enabled: false
+      smtp_host_env: SMTP_HOST
+      smtp_port: 587
+
+# ============================================================================
+# Advanced Settings
+# ============================================================================
+
+advanced:
+  # Git configuration
+  git:
+    worktree_enabled: false
+    auto_stash: true
+    rebase_on_pull: false
+
+  # Performance
+  performance:
+    parallel_builds: true
+    cache_enabled: true
+    incremental_builds: true
+
+  # Debugging
+  debug:
+    verbose_logging: false
+    save_artifacts: true
+    profile_agents: false
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+
+env:
+  required:
+    - GITHUB_TOKEN
+    - ANTHROPIC_API_KEY
+
+  optional:
+    - SLACK_WEBHOOK_URL
+    - DISCORD_WEBHOOK_URL
+    - REPOSITORY

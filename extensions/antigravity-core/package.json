@@ -1,0 +1,186 @@
+{
+  "name": "antigravity-core",
+  "displayName": "AntiGravity Core",
+  "description": "Core extension for AntiGravity IDE - AI-powered agent orchestration",
+  "version": "0.1.0",
+  "publisher": "antigravity",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "ai",
+    "agent",
+    "automation",
+    "code-generation",
+    "mission-control"
+  ],
+  "icon": "resources/logo.png",
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "antigravity.openMissionControl",
+        "title": "AntiGravity: Open Mission Control",
+        "icon": "$(dashboard)"
+      },
+      {
+        "command": "antigravity.executeTask",
+        "title": "AntiGravity: Execute Task",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "antigravity.generateCode",
+        "title": "AntiGravity: Generate Code",
+        "icon": "$(code)"
+      },
+      {
+        "command": "antigravity.reviewCode",
+        "title": "AntiGravity: Review Code",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "antigravity.runTests",
+        "title": "AntiGravity: Run Tests",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "antigravity.createPR",
+        "title": "AntiGravity: Create Pull Request",
+        "icon": "$(git-pull-request)"
+      },
+      {
+        "command": "antigravity.analyzeIssue",
+        "title": "AntiGravity: Analyze Issue",
+        "icon": "$(issues)"
+      },
+      {
+        "command": "antigravity.startAgent",
+        "title": "AntiGravity: Start Agent",
+        "icon": "$(play)"
+      },
+      {
+        "command": "antigravity.stopAgent",
+        "title": "AntiGravity: Stop Agent",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "antigravity.getStatus",
+        "title": "AntiGravity: Get Status",
+        "icon": "$(info)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "antigravity",
+          "title": "AntiGravity",
+          "icon": "resources/logo.svg"
+        }
+      ]
+    },
+    "views": {
+      "antigravity": [
+        {
+          "type": "webview",
+          "id": "missionControl",
+          "name": "Mission Control"
+        },
+        {
+          "id": "agentStatus",
+          "name": "Agent Status"
+        },
+        {
+          "id": "taskInbox",
+          "name": "Task Inbox"
+        }
+      ]
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "antigravity.reviewCode",
+          "group": "antigravity@1"
+        },
+        {
+          "command": "antigravity.generateCode",
+          "group": "antigravity@2"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "antigravity.getStatus",
+          "when": "view == agentStatus",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AntiGravity",
+      "properties": {
+        "antigravity.autoStartAgents": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start agents when IDE opens"
+        },
+        "antigravity.defaultAgents": {
+          "type": "array",
+          "default": ["coordinator"],
+          "description": "Agents to start automatically"
+        },
+        "antigravity.executionPolicy": {
+          "type": "string",
+          "enum": ["off", "auto", "turbo"],
+          "default": "auto",
+          "description": "Agent execution policy"
+        },
+        "antigravity.planningMode": {
+          "type": "string",
+          "enum": ["planning", "fast"],
+          "default": "planning",
+          "description": "Planning mode for tasks"
+        },
+        "antigravity.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show notifications for agent actions"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "antigravity.openMissionControl",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m"
+      },
+      {
+        "command": "antigravity.executeTask",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t"
+      },
+      {
+        "command": "antigravity.generateCode",
+        "key": "ctrl+shift+g",
+        "mac": "cmd+shift+g"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "^20.9.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-miyabi-pink: #ec4899;
+    --color-agent-idle: #6b7280;
+    --color-agent-running: #3b82f6;
+    --color-agent-success: #10b981;
+    --color-agent-error: #ef4444;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  * {
+    @apply border-gray-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-miyabi-pink-500 text-white hover:bg-miyabi-pink-700;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-gray-100 text-gray-700;
+  }
+
+  .card {
+    @apply rounded-lg border bg-white p-4 shadow-sm;
+  }
+
+  .agent-status-badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
