@@ -14,22 +14,24 @@ interface TaskInfo {
   createdAt: number;
 }
 
-export class TaskInboxProvider implements vscode.TreeDataProvider<TaskItem> {
+type TaskTreeItem = TaskItem | EmptyTaskItem;
+
+export class TaskInboxProvider implements vscode.TreeDataProvider<TaskTreeItem> {
   private _onDidChangeTreeData: vscode.EventEmitter<
-    TaskItem | undefined | null | void
-  > = new vscode.EventEmitter<TaskItem | undefined | null | void>();
+    TaskTreeItem | undefined | null | void
+  > = new vscode.EventEmitter<TaskTreeItem | undefined | null | void>();
   readonly onDidChangeTreeData: vscode.Event<
-    TaskItem | undefined | null | void
+    TaskTreeItem | undefined | null | void
   > = this._onDidChangeTreeData.event;
 
   private tasks: TaskInfo[] = [];
   private taskIdCounter = 0;
 
-  getTreeItem(element: TaskItem): vscode.TreeItem {
+  getTreeItem(element: TaskTreeItem): vscode.TreeItem {
     return element;
   }
 
-  getChildren(_element?: TaskItem): Thenable<TaskItem[]> {
+  getChildren(_element?: TaskTreeItem): Thenable<TaskTreeItem[]> {
     if (this.tasks.length === 0) {
       return Promise.resolve([new EmptyTaskItem()]);
     }
