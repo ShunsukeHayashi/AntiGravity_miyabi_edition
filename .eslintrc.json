@@ -4,8 +4,9 @@
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json", "./tsconfig.test.json"]
   },
+  "ignorePatterns": ["**/__tests__/**", "**/*.test.ts", "**/*.spec.ts"],
   "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
